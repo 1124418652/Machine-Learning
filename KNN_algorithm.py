@@ -3,6 +3,26 @@
 import numpy as np
 import operator
 
+
+def autoNorm(dataSet):
+	"""
+	the autoNorm function is used to normalized the data set
+	the parameter dataSet should be array type
+	this function will return three values:
+	normDataSet:             the data set which has been normalized
+	ranges:                  a list which contains the ranges of every features
+	minVals:                 the min values of every features
+	"""
+	minVals = dataSet.min(0)
+	maxVals = dataSet.max(0)
+	ranges = maxVals - minVals
+	normDataSet = np.zeros(np.shape(dataSet))
+	dataSet_size = dataSet.shape[0]
+	normDataSet = dataSet - np.tile(minVals, (dataSet_size, 1))
+	normDataSet = normDataSet / np.tile(ranges, (dataSet_size, 1))
+	return normDataSet, ranges, minVals
+	
+
 def classify(inX, dataSet, labels, k):
     """
     the classify function has four parameters:
@@ -11,7 +31,6 @@ def classify(inX, dataSet, labels, k):
     labels:         the labels that dataSet contains
     k:              the value of k
     """
-
     dataSet_size = dataSet.shape[0]
     diff_Mat = np.tile(inX, (dataSet_size, 1)) - dataSet 
     sqdiff_Mat = diff_Mat ** 2
@@ -33,6 +52,7 @@ def classify(inX, dataSet, labels, k):
     sortedClassCount = sorted(classCount.iteritems(), key = lambda var: var[1], reverse = True)
     return sortedClassCount[0][0]
     
+
 if __name__ == "__main__":
     inx = np.array([1,0.9])
     dataSet = np.array([[1,1.1],[1,1],[0,0],[0,0.1]])
