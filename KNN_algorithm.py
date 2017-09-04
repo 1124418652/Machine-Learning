@@ -4,6 +4,29 @@ import numpy as np
 import operator
 
 
+def filetodata(filename):
+	"""
+	the filetodata function is used to extra data from file
+	the function has one parameter:
+	filename:              the name of the file that contains training data and each line is splited by tab
+	"""
+	with open(filename, 'r+') as fr:
+		dataLines = fr.readlines()
+		num_of_lines = len(dataLines)
+		returnMat = np.zeros((num_of_lines, 3))
+		label_list = []
+		index = 0
+
+		for line in dataLines:
+			line = line.strip()
+			tmp = line.split('\t')
+			returnMat[index, :] = tmp[0:3]
+			label_list.append(tmp[-1])
+			index += 1
+		
+		return returnMat, label_list
+
+
 def autoNorm(dataSet):
 	"""
 	the autoNorm function is used to normalized the data set
