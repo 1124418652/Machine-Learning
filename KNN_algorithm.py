@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+import sys
 import numpy as np
 import operator
 
@@ -24,7 +26,7 @@ def filetodata(filename):
 			label_list.append(tmp[-1])
 			index += 1
 		
-		return returnMat, label_list
+	return returnMat, label_list
 
 
 def autoNorm(dataSet):
@@ -77,7 +79,33 @@ def classify(inX, dataSet, labels, k):
     
 
 if __name__ == "__main__":
-    inx = np.array([1,0.9])
-    dataSet = np.array([[1,1.1],[1,1],[0,0],[0,0.1]])
-    labels = ['a','a','b','b']
-    print(classify(inx, dataSet, labels, 1))
+	filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../machinelearninginaction/Ch02/datingTestSet.txt")
+	dataSet, labels = filetodata(filename)
+	dataSet = autoNorm(dataSet)[0]
+
+	proportion = 0.1
+	test_data = dataSet[:int(proportion*len(dataSet)+1)]
+	test_labels = labels[:int(proportion*len(labels)+1)]
+	error = 0.0
+	for i in range(len(test_data)):
+		label = classify(test_data[i], dataSet[int(proportion*len(dataSet)+1):], labels[int(proportion*len(labels)+1):], 7)
+		if label != test_labels[i]:
+			error += 1
+
+	print error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
