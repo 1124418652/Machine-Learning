@@ -8,12 +8,13 @@ def cal_sannon_ent(dataSet):
 	"""
 	the function cal_sannon_ent is used to calculate the Shannon entropy of the data set
 	"""
+	dataSet = np.array(dataSet)
 	num_entries = len(dataSet)
 
 	label_count = {}                           #create a dic type to store the appear times of every label
 	for label in dataSet[:,-1]:
 		if label not in label_count.keys():
-			label_count[label] = 0
+			label_count[label] = 1
 		else: label_count[label] += 1
 		"""
 		label_count.get(label,0) += 1
@@ -57,10 +58,21 @@ def choose_bestFeature_toSplit(dataSet):
 	pre_sannon_value = cal_sannon_ent(dataSet)
 	num_axis = len(dataSet[0]) - 1
 
-	for axis in num_axis:
-		value = set(dataSet[:, axis])           #the value of every features should not be repeated
+	best_info_gain = 0.0
+	for axis in range(num_axis):
+		value = [example[axis] for example in dataSet]
+		print value
+		value = set(value)                                   #the value of every features should not be repeated
+		tmp_sannon = 0.0
 		for i in value:
 			sub_dataSet = split_dataSet(dataSet, axis, i)
+			prob = len(sub_dataSet)/float(len(dataSet))
+			tmp_sannon += prob * cal_sannon_ent(sub_dataSet)
+		infoGain = pre_sannon_value - tmp_sannon
+		if best_info_gain < infoGain:
+			best_info_gain = infoGain
+			best_feature = axis
+	return best_feature
 
 		
 
