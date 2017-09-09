@@ -2,6 +2,7 @@
 
 import numpy as np
 from math import log
+import operator
 
 
 def cal_sannon_ent(dataSet):
@@ -61,12 +62,11 @@ def choose_bestFeature_toSplit(dataSet):
 	best_info_gain = 0.0
 	for axis in range(num_axis):
 		value = [example[axis] for example in dataSet]
-		print value
 		value = set(value)                                   #the value of every features should not be repeated
 		tmp_sannon = 0.0
 		for i in value:
 			sub_dataSet = split_dataSet(dataSet, axis, i)
-			prob = len(sub_dataSet)/float(len(dataSet))
+			prob = len(sub_dataSet) / float(len(dataSet))
 			tmp_sannon += prob * cal_sannon_ent(sub_dataSet)
 		infoGain = pre_sannon_value - tmp_sannon
 		if best_info_gain < infoGain:
@@ -75,10 +75,29 @@ def choose_bestFeature_toSplit(dataSet):
 	return best_feature
 
 		
+def majorityCnt(classlist):
+	"""
+	the parameter of this function is the list of the classes belong to this leaf node
+	if the leaf node has more than one classes, this function will return the most class
+	as the class of this leaf
+	"""
+	class_count = {}
+	for vote in classlist:
+		if vote not in class_count.keys(): class_count[vote] = 1
+		class_count[vote] += 1
+	
+	sorted_class = sorted(class_count.iteritems(), key = operator.itemgetter(1), reverse = True)
+	return sorted_class[0][0]
 
 
-
-
+def creat_tree(dataSet, labels):
+	"""
+	returns a recursive dict representing the dicision tree
+	this is a recusive function whose cycle will be exit in three situations:
+	1) the leaf node has only one class
+	2) all features have been used but the leaf node still has more than one classes
+	3) all of the leaf nodes have been created
+	"""
 
 
 
