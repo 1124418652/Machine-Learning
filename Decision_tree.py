@@ -94,10 +94,22 @@ def creat_tree(dataSet, labels):
 	"""
 	returns a recursive dict representing the dicision tree
 	this is a recusive function whose cycle will be exit in three situations:
-	1) the leaf node has only one class
-	2) all features have been used but the leaf node still has more than one classes
-	3) all of the leaf nodes have been created
+	1) the leaf node has only one class, then the function will return the value of the class and write it 
+		into the dicision tree dictionary, as the classification result using current feature
+	2) all features have been used but the leaf node still has more than one classes, then it will invoke 
+		function majorityCnt() to find out the most class as the classification using current feature
+	3) all of the leaf nodes have been created, then will return the dicision tree
 	"""
+	class_list = [example[-1] for example in dataSet]
+	
+	#the leaf node has only one class
+	if class_list.count(class_list[0]) == len(class_list):
+		return class_list[0]             
+	
+	#all features have been used
+	if len(dataSet[0]) == 1
+		return majorityCnt(class_list)
+
 
 
 
