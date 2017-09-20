@@ -109,6 +109,11 @@ def creat_tree(dataSet, labels):
 	#all features have been used
 	if len(dataSet[0]) == 1
 		return majorityCnt(class_list)
+		
+	#the node is not a leaf node
+	bestFeat = choose_bestFeature_toSplit(dataSet)
+	bestFeatLabel = labels(bestFeat)
+	
 
 
 
