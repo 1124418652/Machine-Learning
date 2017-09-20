@@ -113,6 +113,8 @@ def creat_tree(dataSet, labels):
 	#the node is not a leaf node
 	bestFeat = choose_bestFeature_toSplit(dataSet)
 	bestFeatLabel = labels(bestFeat)
+	my_tree = {bestFeatLabel:{}}
+	
 	
 
 
