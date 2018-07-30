@@ -1,10 +1,5 @@
 #include <iostream>
 #include <cstring>
-
-#define _Matrix(ins) Matrix<int> ins(#ins)
-#define _Matrix(ins, row, col) Matrix<int> ins(#ins, row, col)
-#define _Matrix(ins, matrix, row, col) Matrix<int> ins(#ins, matrix, row, col)
-
 using namespace std;
 typedef unsigned int UINT;
 
@@ -14,25 +9,21 @@ class Matrix
 	int col;
 	int row;
 	T *matrix;
-	string *name;
 	public:
-		Matrix(char *n, T *m, int row1, int col1):row(row1), col(col1){
-			strcpy(name, n);
+		Matrix(T *m, int row1, int col1):row(row1), col(col1){
 			matrix = new T[row*col];
 			for (int i=0; i<row*col; i++)
 			{
 				matrix[i] = m[i];
 			}
 		}
-		Matrix(char *n, int row1, int col1):row(row1), col(col1)
+		Matrix(int row1, int col1):row(row1), col(col1)
 		{
-			strcpy(name, n);
 			matrix = new T[row*col];
 			cout<<"Have set the shape of the matrix, but should use create() to initialize the matrix!"<<endl;
 		}
-		Matrix(char *n)
+		Matrix()
 		{
-			strcpy(name, n);
 			matrix = NULL;
 		}
 		~Matrix(){
@@ -65,7 +56,7 @@ void Matrix<T>::show()
 		cout<<"The matrix is empty"<<endl;
 		return;
 	}
-	cout<<"Show matrix ";
+	cout<<"Show matrix: \n";
 	for (int i=0; i<row; i++)
 	{
 		for (int j=0; j<col; j++)
