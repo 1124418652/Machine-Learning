@@ -47,7 +47,6 @@ class Matrix
 		Matrix matrix_Adjoint();        // calculate the adjoint matrix
 };
 
-
 template<class T>
 void Matrix<T>::show()
 {
@@ -68,7 +67,6 @@ void Matrix<T>::show()
 	cout<<endl;
 }
 
-
 template<class T>
 UINT Matrix<T>::create(T *m)
 {
@@ -81,7 +79,6 @@ UINT Matrix<T>::create(T *m)
 	}
 	return 1;
 }
-
 
 template<class T>
 UINT Matrix<T>::zeros(int size)
@@ -102,7 +99,6 @@ UINT Matrix<T>::zeros(int size)
 	}
 	return 1;
 }
-
 
 template<class T>
 UINT Matrix<T>::eye(int size)
@@ -126,7 +122,6 @@ UINT Matrix<T>::eye(int size)
 	}
 	return 1;
 }
-
 
 template<class T>
 Matrix<T> Matrix<T>::operator +(const Matrix<T> &m1)
@@ -166,7 +161,6 @@ Matrix<T> Matrix<T>::operator -(const Matrix<T> &m1)
 	return Matrix<T>(tmp, row, col);
 }
 
-
 template<class T>
 Matrix<T> Matrix<T>::operator *(const Matrix &m1)
 {
@@ -190,7 +184,6 @@ Matrix<T> Matrix<T>::operator *(const Matrix &m1)
 	}
 	return Matrix<T>(tmp, row, m1.col);
 }
-
 
 template<class T>
 Matrix<T>& Matrix<T>::operator =(const Matrix<T> &m)
@@ -226,5 +219,10 @@ Matrix<T> Matrix<T>::matrix_T()
 	}
 	return Matrix<T>(tmp, col, row);
 }
-
-
+/*
+template<class T>
+Matrix<T> Matrix<T>::matrix_Inv()
+{
+	
+}
+*/
