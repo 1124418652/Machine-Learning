@@ -9,6 +9,7 @@ import time
 import copy as cp
 import numpy as np
 from math import sqrt
+from random import random
 from collections import namedtuple
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -76,7 +77,7 @@ class KDTree(object):
 			ax.plot(self._data_set[:,0], self._data_set[:,1], 'o')
 			plt.show()
 
-		elif(3 == self.__k):
+		elif(3 == self._k):
 			fig = plt.figure()
 			ax = fig.add_subplot(1,1,1,projection='3d')
 			ax.scatter(self._data_set[:,0], self._data_set[:,1], self._data_set[:,2], 'o')
@@ -128,13 +129,30 @@ class KDTree(object):
 
 		return self.result(nearest_node, nearest_dis)
 
+def create_random_point(k):
+	return [random() for _ in range(k)]
+
+def create_random_dataset(k, n):
+	return [create_random_point(k) for _ in range(n)]
+
 def main():
+	"""
 	data = [[2,3,1],[5,4,1],[9,6,1],[4,7,1],[8,1,1],[7,2,1]]
 	tree = KDTree(data)
-	point = [2,4]
+	point = [5,4]
 	result = tree.search_nearest(tree.root, point, float("inf"))
 	print(result.nearest_node)
+	"""
+
+	dataset = create_random_dataset(4, 100)
+	#print(dataset)
+	tree = KDTree(dataset)
+	point = [0.5, 0.2, 0.3]
 	tree.show_data()
+	result = tree.search_nearest(tree.root, point, float("inf"))
+	print(result.nearest_node)
+
+	#tree.show_data()
 
 if __name__ == '__main__':
 	main()
