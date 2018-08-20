@@ -72,6 +72,7 @@ def choose_bestFeature_toSplit(dataSet):
 		if best_info_gain < infoGain:
 			best_info_gain = infoGain
 			best_feature = axis
+
 	return best_feature
 
 		
@@ -107,16 +108,43 @@ def creat_tree(dataSet, labels):
 		return class_list[0]             
 	
 	#all features have been used
-	if len(dataSet[0]) == 1
+	if len(dataSet[0]) == 1:
 		return majorityCnt(class_list)
 
+	bestFeat = choose_bestFeature_toSplit(dataSet)
+	bestLabel = labels[bestFeat]
 
+	MyTree = {bestLabel:{}}
 
+	del(labels[bestFeat])            # 删除 label 中选出的 bestFeat，为了与分割后的子 dataSet 保持一致
 
+	featValue = [example[bestFeat] for example in dataSet]
+	uniFeatValue = set(featValue)    # 确保值不重复
 
+	for value in uniFeatValue:
+		subLabels = labels[:]
+		MyTree[bestLabel][value] = creat_tree(split_dataSet(dataSet, bestFeat, value), subLabels)
 
+	return MyTree
 
+if __name__ == '__main__':
 
-
-
-
+	dataSet = [[1,1,'yes'],
+			   [1,1,'yes'],
+			   [1,0,'no'],
+			   [0,1,'no'],
+			   [0,1,'no']]
+	labels = ['no surfacing', 'flippers']
+	# dataSet = [[1,1,1,'yes'],
+	# 		   [2,1,1,'yes'],
+	# 		   [3,1,0,'no'],
+	# 		   [1,0,1,'no'],
+	# 		   [1,0,1,'no'],
+	# 		   [2,2,2,'yes'],
+	# 		   [4,1,2,'no'],
+	# 		   [4,2,0,'yes'],
+	# 		   [2,1,3,'no'],
+	# 		   [3,1,2,'yes'],
+	# 		   [1,4,0,'no']]
+	# labels = ['no surfacing', 'flippers', 'water']
+	print(creat_tree(dataSet, labels))
