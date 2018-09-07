@@ -1,0 +1,13 @@
+.git
+matrixOperate/Debug/*
+matrixOperate/*.dsp
+matrixOperate/*.dsw
+matrixOperate/*.ncb
+matrixOperate/*.opt
+matrixOperate/*.plg
+Debug/*
+*.dsp
+*.dsw
+*.ncb
+*.opt
+*.plg

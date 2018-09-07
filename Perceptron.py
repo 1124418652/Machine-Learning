@@ -1,4 +1,9 @@
 #-*- coding: utf-8 -*-
+"""
+# create on 7/30 2018
+# author: xhj
+# email: 1124418652@qq.com
+"""
 import numpy as np 
 import copy
 import time
