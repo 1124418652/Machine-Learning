@@ -8,5 +8,12 @@
 
 from sympy import *
 
-vars("z, w, x, b")
+z, w, x, b, y, L, yi = symbols("z, w, x, b, y, L, yi")
 
+z = w * x + b
+y = exp(z) / (1 + exp(z))
+L = -(yi * log(y) + (1 - yi) * log(1 - y))
+
+
+print(y)
+pprint(diff(L, b))
