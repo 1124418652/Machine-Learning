@@ -21,7 +21,6 @@ class logistic(object):
 
     def modify_data(self, path):
         ifopen = open(path, "r")
-        # ofopen = open(path, "w")
         ofopen = open("training.txt", "w", newline = "")     # 如果不加 newline = ""，则会写入空行
         reader = csv.reader(ifopen)
         writer = csv.writer(ofopen)
@@ -33,10 +32,8 @@ class logistic(object):
                 i = [float(x) for x in i]
                 writer.writerow(i)
 
-                # ofopen.write(i)
         ifopen.close()
         ofopen.close()
-        # ofopen.close()
 
     def load_data(self, path):
         if False == os.path.isfile(path):
@@ -48,11 +45,12 @@ class logistic(object):
         with open(path, "r") as fr:
             reader = csv.reader(fr)
             for row in reader:
-                print(row)
                 data.append(row[: -1])
                 label.append(row[-1])
+
         self.data_set = np.array(data, dtype = "float64")
         self.labels = np.array(label, dtype = "float64")
+
         return self.data_set, self.labels
 
     def training(self, data_set, labels):
@@ -83,7 +81,7 @@ class logistic(object):
         else:
             return 0
 
-    def test(self, data_set, labels):
+    def testing(self, data_set, labels):
         error = 0.0
         num = len(labels)
         predict_label = np.zeros(num)
@@ -102,7 +100,7 @@ def main():
 
     w, b = logis.training(data, label)
     # print(w, b)
-    logis.test(data, label)
+    logis.testing(data, label)
     # print(exp(np.dot([1,1], w) + b) / (1 + exp(np.dot([1,1], w) + b)))
     # print(logis.predict([-1.395634,4.662541], w, b))
 
