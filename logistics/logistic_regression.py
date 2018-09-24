@@ -89,18 +89,50 @@ class logistic(object):
         for i in range(num):
             if self.predict(data_set[i], self._w, self._b) == 1:
                 predict_label[i] = 1
-        error = np.array([abs(x) for x in predict_label - labels]).sum() / num
+
+        diff = predict_label - labels
+        error = np.array([abs(x) for x in diff]).sum() / num
         print("Error of this model: ", error)
+
+        error_point = []
+        for i in range(num):
+            if 0 != diff[i]:
+                error_point.append(data_set[i])
+
+        return error_point
+
+    def show_data(self, data_set, labels):
+        num = len(labels)
+        pos_data = []
+        neg_data = []
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+
+        for i in range(num):
+            if 1 == labels[i]:
+                pos_data.append(data_set[i])
+            else:
+                neg_data.append(data_set[i])
+
+        # print(len(pos_data) + len(neg_data))
+        # print(pos_data)
+        pos_data = np.array(pos_data)
+        neg_data = np.array(neg_data)
+        ax.plot(pos_data[:,0], pos_data[:,1], "b*")
+        ax.plot(neg_data[:,0], neg_data[:,1], "ro")
+        plt.show()
 
 def main():
     train_path = "training.txt"
     test_path = "testing.txt"
     logis = logistic()
     data, label = logis.load_data("training.txt")
-
+    # logis.show_data(data, label)
     w, b = logis.training(data, label)
+    error_point = np.array(logis.testing(data, label))
     # print(w, b)
-    logis.testing(data, label)
+    # plt.plot(error_point[:,0], error_point[:,1], "*")
+    # plt.show()
     # print(exp(np.dot([1,1], w) + b) / (1 + exp(np.dot([1,1], w) + b)))
     # print(logis.predict([-1.395634,4.662541], w, b))
 
