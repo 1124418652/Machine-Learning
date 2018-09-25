@@ -106,7 +106,7 @@ def adaBoost(dataSet, labels, Darray, numIt = 40):
 def main():
 	dataSet, labels, Darray = create_dataSet(3, 40)
 	stump_classify(dataSet, 1, 3, 'lt')
-	classify_set = adaBoost(dataSet, labels, Darray, 100)
+	classify_set = adaBoost(dataSet, labels, Darray, 400)
 	
 
 if __name__ == '__main__':

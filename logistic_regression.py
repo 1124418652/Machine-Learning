@@ -27,7 +27,7 @@ def model_training(data_set, label, w = None, b = 0):
     temp variables:
         z = w.T * x
         a = e^z / (1 + e^z)
-
+		
     """
     pass
 
