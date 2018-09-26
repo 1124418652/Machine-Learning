@@ -129,7 +129,7 @@ def main():
     test_path = "testing.txt"
     logis = logistic()
     data, label = logis.load_data("training.txt")
-    # logis.show_data(data, label)
+    logis.show_data(data, label)
     w, b = logis.training(data, label)
     error_point = np.array(logis.testing(data, label))
     # print(w, b)
